@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/9804a87b-f652-476e-a47c-57d8e4ed78b3/microsoft.web/sites/subscriptions/9804a87b-f652-476e-a47c-57d8e4ed78b3/resourceGroups/DefaultResourceGroup-WEU/providers/Microsoft.Web/sites/Devicecall",
+    "appService.deploySubpath": "dist\\call-records"
+}

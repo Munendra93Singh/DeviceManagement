@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl:'https://ariqt-azuretablestorage-webapi.azurewebsites.net:4801', 
+  //apiUrl: 'http://localhost:4000'
 };
 
 /*

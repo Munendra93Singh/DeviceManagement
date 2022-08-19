@@ -1,0 +1,105 @@
+<div class="card">
+  <div class="card-body">
+    <mat-card>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="col-xs-4">
+              <div>
+                <form [formGroup]="dateInputForm">
+                  <input type="date"
+                    formControlName="datePicker"
+                    name="somedate"
+                    id="somedate"
+                    max="{{ currentDate | date: 'yyyy-MM-dd' }}"
+                    (change)="Onchange()"
+                  />
+                </form>
+              </div>
+            </div>
+            <!-- <div class="col-sm-4"></div> -->
+            <div class="col-xs-4">
+              <div class="wrap">
+                <div class="search">
+                  <input
+                    type="text"
+                    class="searchTerm"
+                    placeholder="search for device and department"
+                    [(ngModel)]="searchTerm"
+                    (ngModelChange)="search()"
+                  />
+                  <button type="submit" class="searchButton">
+                    <!-- <i class="fa fa-search"></i> -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+    <br />
+    <mat-card>
+      <div class="container" *ngIf="gotData; else spinner">
+        <table class="table table-striped border mt-1">
+          <thead>
+            <tr style="text-align: center">
+              <!-- <th>Event-id</th> -->
+              <th scope="col" (click)="sort('dept')">
+                Department &nbsp;<img src="../../assets/filter-sort.jpg" width="10px" height="10px">
+              </th>
+              <th scope="col" (click)="sort('deviceName')">
+                Device &nbsp;<img src="../../assets/filter-sort.jpg" width="10px" height="10px">
+              </th>
+              <th scope="col" (click)="sort('timegenerated')">
+                Time-generated &nbsp;<img src="../../assets/filter-sort.jpg" width="10px" height="10px">
+              </th>
+              <th scope="col" (click)="sort('workingHourss')">
+                Logged-in-hours &nbsp;
+                <!-- <i class="fa fa-sort"></i> -->
+                <img src="../../assets/filter-sort.jpg" width="10px" height="10px">
+              </th>
+              <!-- <th>Non-working-hours</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let baseRecord of filteredAzureRecordsOfdata
+                  | paginate: config
+                  | orderBy: key:reverse
+              "
+            >
+              <!-- <td>{{baseRecord.eventId}}</td> -->
+              <td class="text-center align-middle">{{ baseRecord.dept }}</td>
+              <td class="text-center align-middle">
+                {{ baseRecord.deviceName }}
+              </td>
+              <td class="text-center align-middle">
+                {{ baseRecord.timegenerated | date: "mediumDate" }}
+              </td>
+              <td class="text-center align-middle">
+                {{ baseRecord.workingHourss }}
+              </td>
+              <!-- <td>{{baseRecord.nonWorkingHours}}</td> -->
+            </tr>
+          </tbody>
+          <ng-template #noRecords>
+            <h3>No records found</h3>
+          </ng-template>
+        </table>
+        <pagination-controls
+          (pageChange)="pageChanged($event)"
+        ></pagination-controls>
+      </div>
+      <ng-template #spinner>
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </ng-template>
+    </mat-card>
+  </div>
+</div>
